@@ -1,0 +1,8 @@
+streamlit
+requests
+fastapi
+
+fastapi
+uvicorn
+torch
+transformers

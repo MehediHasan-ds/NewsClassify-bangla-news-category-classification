@@ -177,6 +177,37 @@ Overall, the model performs exceptionally well with minimal confusion, confirmin
 
 All the four predictions were correct.
 
-## Future Work
+---
 
-Testing the other three models and creating the flask api
+## 📊 Evaluation Results for BanglaBERT-Small News Classifier
+
+The **`csebuetnlp/banglabert_small`** model was fine-tuned on a Bangla news classification task with four categories: `sports`, `international`, `entertainment`, and `national`. After training and applying early stopping, the model's performance was evaluated on a held-out test set.
+
+### ✅ Accuracy
+
+**Overall Accuracy:** `0.9723`
+
+### 🧾 Classification Report
+
+| Category         | Precision | Recall | F1-Score | Support |
+| ---------------- | --------- | ------ | -------- | ------- |
+| Sports           | 0.99      | 0.99   | 0.99     | 297     |
+| International    | 0.99      | 0.94   | 0.96     | 298     |
+| Entertainment    | 0.96      | 0.98   | 0.97     | 298     |
+| National         | 0.95      | 0.98   | 0.97     | 298     |
+| **Macro Avg**    | 0.97      | 0.97   | 0.97     | 1191    |
+| **Weighted Avg** | 0.97      | 0.97   | 0.97     | 1191    |
+
+### 🧩 Confusion Matrix
+
+* Shows strong diagonal dominance with minimal misclassification.
+* Most confusion appears between `international` and `entertainment`.
+
+### 📈 ROC Curve (Multi-Class)
+
+* All four categories achieve an **AUC of \~1.00**, indicating excellent separability between classes.
+* The ROC curve confirms the model’s robustness across all classes.
+
+---
+
+Hence Banglabert-small performs better than others in metrics evaluation and with its small size of parameters.
