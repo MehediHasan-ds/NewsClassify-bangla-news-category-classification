@@ -1,7 +1,3 @@
-Sure! Here's how you can present the user interface in your project documentation:
-
----
-
 # 📰 Bangla News Category Classifier
 
 A full-stack machine learning project that uses a fine-tuned [BanglaBERT-small](https://huggingface.co/csebuetnlp/banglabert_small) model to classify Bangla news texts into four categories:
