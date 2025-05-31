@@ -197,6 +197,13 @@ The **`csebuetnlp/banglabert_small`** model was fine-tuned on a Bangla news clas
 
 ### Classification Report
 
+| Model                  | Accuracy   | Macro F1 | Weighted F1 |
+| ---------------------- | ---------- | -------- | ----------- |
+| **BanglaBERT-Small** ✅ | **0.9723** | **0.97** | **0.97**    |
+| **BanglaBERT-Base**    | 0.9647     | 0.96     | 0.96        |
+| **Bangla-Electra**     | 0.9496     | 0.95     | 0.95        |
+
+
 | Category         | Precision | Recall | F1-Score | Support |
 | ---------------- | --------- | ------ | -------- | ------- |
 | Sports           | 0.99      | 0.99   | 0.99     | 297     |
