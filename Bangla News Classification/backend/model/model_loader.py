@@ -6,7 +6,7 @@ def load_model_and_tokenizer():
     
     base_dir = os.path.dirname(__file__)
     model_path = os.path.join(base_dir, "smbert_category_model.pt")
-    tokenizer_path = os.path.join(base_dir, "banglabert_tokenizer")
+    tokenizer_path = os.path.join(base_dir, "tokenizer")
     tokenizer = AutoTokenizer.from_pretrained(tokenizer_path)
     
 
