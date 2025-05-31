@@ -1,6 +1,6 @@
 # 📰 Bangla News Category Classifier
 
-A full-stack machine learning project that uses a fine-tuned [BanglaBERT](https://huggingface.co/sagorsarker/bangla-bert-base) model to classify Bangla news texts into four categories:
+A full-stack machine learning project that uses a fine-tuned [BanglaBERT-small](https://huggingface.co/csebuetnlp/banglabert_small) model to classify Bangla news texts into four categories:
 
 - **Sports** ⚽
 - **International** 🌐
@@ -22,7 +22,7 @@ Bangla-News-Classifier/
 │   └── model/
 │       ├── __pycache__
 │       ├── model_loader.py
-│       ├── banglabert_category_model.pt
+│       ├── smbert_category_model.pt
 │       └── banglabert_tokenizer/
 ├── frontend/
 │   └── app.py
@@ -36,14 +36,14 @@ Bangla-News-Classifier/
 
 ## 🧠 How the Model Was Trained
 
-- **Base Model**: `sagorsarker/bangla-bert-base`
+- **Base Model**: `csebuetnlp/banglabert_small`
 - **Fine-tuned** using a labeled Bangla news dataset with 4 categories.
 - **Tokenizer**: BanglaBERT tokenizer
 - **Loss Function**: CrossEntropyLoss
 - **Optimizer**: AdamW
 - **Training Details**:
   - Used early stopping based on validation loss
-  - Saved the best model weights to `banglabert_category_model.pt`
+  - Saved the best model weights to `smbert_category_model.pt`
 
 ---
 
@@ -52,7 +52,8 @@ Bangla-News-Classifier/
 ### 1. Clone the Repository
 
 ```
-git clone https://github.com/your-username/banglabert-news-classifier.git
+git clone https://github.com/MehediHasan-ds/NewsClassify-bangla-news-category-classification.git
+
 cd banglabert-news-classifier
 ```
 
