@@ -53,7 +53,7 @@ The model was fine-tuned using a robust training loop that incorporates early st
 
 ## Training Loop with Validation and Early Stopping
 
-The model is trained for up to `num_epochs`, but it can stop earlier if the validation loss does not improve significantly for a number of `patience` consecutive epochs. This helps prevent overfitting and saves training time.
+The models is trained for up to `num_epochs`= 10 , but all of these stopped earlier as their validation loss does not improve significantly for a number of `patience` consecutive epochs. This helps prevent overfitting and saves training time.
 
 ### Training Phase
 
@@ -106,6 +106,40 @@ model.load_state_dict(torch.load("banglabert_category_model.pt", map_location=de
 # Model Evaluation on Test Set
 
 After training and saving the best model, we now evaluate its performance on the **test dataset**. This step helps assess how well the model generalizes to unseen data.
+
+## Model performance comparison
+
+Here's a clear comparison of all **three Bangla news classification models** i have tested:
+
+---
+
+### **Overall Comparison**
+
+| Model                  | Accuracy   | Macro F1 | Weighted F1 |
+| ---------------------- | ---------- | -------- | ----------- |
+| **BanglaBERT-Small** ✅ | **0.9723** | **0.97** | **0.97**    |
+| **BanglaBERT-Base**    | 0.9647     | 0.96     | 0.96        |
+| **Bangla-Electra**     | 0.9496     | 0.95     | 0.95        |
+
+---
+
+### **Per-Class F1-Score Comparison**
+
+| Model                  | Sports | International | Entertainment | National |
+| ---------------------- | ------ | ------------- | ------------- | -------- |
+| **BanglaBERT-Small** ✅ | 0.99   | 0.96          | 0.97          | 0.97     |
+| **BanglaBERT-Base**    | 0.99   | 0.95          | 0.96          | 0.96     |
+| **Bangla-Electra**     | 0.97   | 0.95          | 0.93          | 0.95     |
+
+---
+
+### ✅ **Insights**
+
+* **🏆 BanglaBERT-Small performs best overall** across accuracy, macro average, and all per-class F1 scores. It slightly outperforms BanglaBERT-Base even though it's smaller — likely due to better fine-tuning or architecture alignment.
+* **Bangla-Electra**, while solid, falls a bit short — especially in the *entertainment* class, where its F1-score is only **0.93**.
+* All models perform exceptionally well in **sports** news classification (F1 ≥ 0.97).
+
+
 
 ### Inference and Predictions
 
@@ -172,16 +206,7 @@ The **`csebuetnlp/banglabert_small`** model was fine-tuned on a Bangla news clas
 | **Macro Avg**    | 0.97      | 0.97   | 0.97     | 1191    |
 | **Weighted Avg** | 0.97      | 0.97   | 0.97     | 1191    |
 
-### Confusion Matrix
-
-* Shows strong diagonal dominance with minimal misclassification.
-* Most confusion appears between `international` and `entertainment`.
-
-### ROC Curve (Multi-Class)
-
-* All four categories achieve an **AUC of \~1.00**, indicating excellent separability between classes.
-* The ROC curve confirms the model’s robustness across all classes.
 
 ---
 
-Hence Banglabert-small performs better than others in metrics evaluation and with its small size of parameters.
+Hence Banglabert-small performs better than others in metrics evaluation and with its small size of parameters. SO, we will use this model fro seployment using FastApi

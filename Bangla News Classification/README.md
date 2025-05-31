@@ -42,11 +42,11 @@ Bangla-News-Classifier/
 
 ---
 
-## 🧠 How the Model Was Trained
+## 🧠 How the main Model we are using for deployment
 
 - **Base Model**: `csebuetnlp/banglabert_small`
 - **Fine-tuned** using a labeled Bangla news dataset with 4 categories.
-- **Tokenizer**: BanglaBERT tokenizer
+- **Tokenizer**: BanglaBERT-small tokenizer
 - **Loss Function**: CrossEntropyLoss
 - **Optimizer**: AdamW
 - **Training Details**:
@@ -55,7 +55,136 @@ Bangla-News-Classifier/
 
 ---
 
-## 🚀 Getting Started
+
+## Here's how we have made the deployment
+
+### Step 1: Model Loading Logic (backend/model/model\_loader.py)
+
+We created a utility that:
+
+* Loads the fine-tuned `BanglaBERT-Small` model and tokenizer
+* Removes the need to re-train or re-download during deployment
+* Maps prediction outputs to category labels
+
+```python
+def load_model_and_tokenizer():
+    tokenizer = AutoTokenizer.from_pretrained(tokenizer_path)
+    model = AutoModelForSequenceClassification.from_pretrained("csebuetnlp/banglabert_small", num_labels=4)
+    model.load_state_dict(torch.load(model_path, map_location=torch.device("cpu")))
+    model.eval()
+    return model, tokenizer, label_map
+```
+
+---
+
+### Step 2: FastAPI Backend (backend/main.py)
+
+We built a simple **FastAPI** app that:
+
+* Loads model and tokenizer at startup
+* Defines a POST endpoint `/predict`
+* Accepts Bangla news text as input
+* Returns the predicted category
+
+```python
+from fastapi import FastAPI
+from pydantic import BaseModel
+from .model.model_loader import load_model_and_tokenizer, predict_category
+
+app = FastAPI()
+
+model, tokenizer, label_map = load_model_and_tokenizer()
+
+class TextRequest(BaseModel):
+    text: str
+
+@app.post("/predict")
+def predict(request: TextRequest):
+    category = predict_category(request.text, model, tokenizer, label_map)
+    return {"category": category}
+```
+
+---
+
+### Step 3: Streamlit Frontend (frontend/app.py)
+
+We created a user-friendly **Streamlit UI** that:
+
+* Lets users paste news text or upload a `.txt` file
+* Sends the input to the FastAPI backend using `requests`
+* Displays the predicted category
+
+```python
+response = requests.post("http://localhost:8000/predict", json={"text": input_text})
+st.success(f"Predicted Category: {result['category'].capitalize()}")
+```
+
+---
+
+### Step 4: Install Dependencies
+
+Use a virtual environment (recommended):
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+Your `requirements.txt` should include:
+
+```txt
+fastapi
+uvicorn
+torch
+transformers
+streamlit
+requests
+```
+
+---
+
+### Step 5: Run the Backend (FastAPI)
+
+From the root directory:
+
+```bash
+uvicorn backend.main:app --reload
+```
+
+This will start the API at `http://127.0.0.1:8000`
+
+---
+
+### Step 6: Run the Frontend (Streamlit)
+
+From the `frontend/` folder:
+
+```bash
+streamlit run app.py
+```
+
+Visit: `http://localhost:8501`
+
+---
+
+### Step 7: Test the Application
+
+* Paste or upload Bangla news text
+* Click "Predict"
+* See the predicted category displayed on screen
+
+### Some example Texts to Try
+You can input any Bangla news headline or paragraph. Here are a few examples:
+```
+আজ বিশ্বজুড়ে পালিত হচ্ছে আন্তর্জাতিক নারী দিবস।
+ঢালিউডে নতুন একটি সিনেমার শুটিং শুরু হয়েছে।
+রাজধানীতে আজ মন্ত্রিপরিষদের এক জরুরি বৈঠক অনুষ্ঠিত হয়েছে।
+
+```
+
+
+## 🚀 Test the application 
 
 ### 1. Clone the Repository
 
@@ -93,54 +222,3 @@ pip install -r requirements.txt
 streamlit run app.py
 
 ```
-## 📮 API Endpoint
-POST /predict
-
-Request (JSON):
-
-```
-{
-  "text": "বাংলাদেশ আজ ভারতের বিরুদ্ধে দুর্দান্ত এক জয় পেয়েছে।"
-}
-
-```
-Response (JSON):
-
-```
-{
-  "category": "sports"
-}
-
-```
-
-## 📌 Example Texts to Try
-You can input any Bangla news headline or paragraph. Here are a few examples:
-```
-আজ বিশ্বজুড়ে পালিত হচ্ছে আন্তর্জাতিক নারী দিবস।
-ঢালিউডে নতুন একটি সিনেমার শুটিং শুরু হয়েছে।
-রাজধানীতে আজ মন্ত্রিপরিষদের এক জরুরি বৈঠক অনুষ্ঠিত হয়েছে।
-
-```
-
-## 📦 Dependencies
-
-
-The backend requires the following Python libraries:
-
-- `fastapi`
-- `uvicorn`
-- `torch`
-- `transformers`
-- `streamlit`
-- `requests`
-
-You can install them with:
-
-pip install -r /requirements.txt
-
-```
-Then run:
-uvicorn backend.main:app --reload
-streamlit run app.py
-
-and visit the link.
