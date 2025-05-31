@@ -10,51 +10,40 @@ The workflow includes preprocessing raw Bangla text, removing irrelevant tokens,
 
 The aim is to develop an accurate and robust model that understands Bangla language nuances and effectively categorizes news content for downstream NLP applications.
 
-# Data Load and Exploration
-
-There are 990 null values in the reporter column. However this doesn't matter to us. because we will not work with this column. we will work only with title,content and category.
-
-We will remove the unncessary columns
-
-Nice! This is a balanced dataset with four classes.
-
-Now let's see string leghth of conent for each category
-
-"ছবি: সংগৃহীত" at the start of some content which has no meaning to the actual content of the news. Let's see if there are many rows that has similar words. Let's check some tail rows.
-
-"ফাইল ছবি" at the start of some content is also irrelevant to content. Let's check some middle rows.
-
-Let's check some rows from the middle
-
-No, irrelevant texts found in the middle rows.
-
-# Data Cleaning
-
-if you look into the data you will see that there are functuations stopwords in the data. we will remove them from content as well as do other some preprocessing.
-
-We will combine bangla stopwords from two different datasets then we will remove them from the content as they are not gonna impact so much on the model. Remember there are a lot of words in some categories like more than 1000 so, removing the stopwords will reduce the size and the important words will be in the text. As a result when we set token length to 512 the probalbility of loosing important data will be reduced.
-
-Remove the stopwords that are common to both datasets
-
-Now, let's clean stopwords and other unnecessary things from the dataset
-
-# Feature Engineering
-
-Already removed the unnecessary columns rom the dataset. Now, we will create a new text column which will be cleaned and then we will drop the actual content when we are done with it.
-
-সালের,সাল,মি.,টা,মিনিটে,মিনিট still these words are unnecessary in the content. these need to be removed.
+Here’s a revised version of the **"Data Load and Exploration", "Data Cleaning", "Feature Engineering"**, and **"Model Setup and Training"** sections. The rewrite focuses on **what has been done and what has been achieved**, emphasizing your **techniques and decisions**, not the detailed step-by-step process.
 
 
+#### my notebook link: https://colab.research.google.com/drive/1V7T8yeZq4snNm3FLRE2pwKDgfDhMWoDM?usp=sharing
 
-# Load the cleaned dataset
 
-## Model Setup and Dataset Preparation
+## 📂 Data Load and Exploration
 
-This section prepares the data and model to fine-tune `sagorsarker/bangla-bert-base` for Bangla news categorization.
+The dataset was inspected and cleaned by discarding irrelevant columns such as `reporter`, which contained a large number of null values and had no influence on the classification task. Only the `title`, `content`, and `category` fields were retained for modeling.
 
-# Model Training with Early Stopping
+An initial analysis confirmed that the dataset is balanced across four distinct news categories. Additionally, content strings were analyzed to detect and eliminate repetitive, irrelevant phrases like “ছবি: সংগৃহীত” and “ফাইল ছবি”, which often appear at the beginning of articles but offer no contextual value for classification.
 
-This section covers the fine-tuning of Bangla BERT on the training data with **early stopping** to prevent overfitting. A **linear learning rate scheduler** is also used for optimized learning.
+
+## 🧹 Data Cleaning
+
+To enhance the quality of input data, punctuation and Bangla stopwords were removed from the content. Stopwords were merged from multiple sources to ensure comprehensive coverage. This significantly reduced noise and preserved only meaningful tokens, especially important when dealing with a token limit of 512.
+
+Additional low-value terms (e.g., সাল, মিনিট) that were domain-irrelevant were identified and excluded to further refine the dataset. This targeted cleaning approach ensured higher-quality inputs for the model and reduced the risk of truncating informative tokens during tokenization.
+
+
+## 🛠️ Feature Engineering
+
+The data was restructured to create a new processed text field that combines the cleaned and filtered content. Once finalized, the original unprocessed content field was removed to optimize memory usage and keep the dataset concise.
+
+
+## 🧠 Model Setup and Dataset Preparation
+
+The cleaned dataset was prepared for training by tokenizing the text using the `sagorsarker/bangla-bert-base` model. The label space was mapped, and the model architecture was adapted for multi-class classification with four output categories.
+
+
+## 🔁 Model Training with Early Stopping
+
+The model was fine-tuned using a robust training loop that incorporates early stopping to prevent overfitting. A linear learning rate scheduler was employed to stabilize learning and optimize convergence. This approach resulted in a well-generalized model capable of accurately classifying Bangla news content across all categories.
+
 
 ## Training Loop with Validation and Early Stopping
 
