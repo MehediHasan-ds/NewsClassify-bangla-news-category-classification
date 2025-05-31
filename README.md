@@ -179,7 +179,3 @@ The **`csebuetnlp/banglabert_small`** model was fine-tuned on a Bangla news clas
 ---
 
 Hence Banglabert-small performs better than others in metrics evaluation and with its small size of parameters.
-
-```
-
-
