@@ -31,7 +31,7 @@ Bangla-News-Classifier/
 │       ├── __pycache__
 │       ├── model_loader.py
 │       ├── smbert_category_model.pt
-│       └── banglabert_tokenizer/
+│       └── tokenizer/
 ├── frontend/
 │   └── app.py
 ├── README.md
