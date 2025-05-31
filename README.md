@@ -44,15 +44,11 @@ Already removed the unnecessary columns rom the dataset. Now, we will create a n
 
 সালের,সাল,মি.,টা,মিনিটে,মিনিট still these words are unnecessary in the content. these need to be removed.
 
-## custom stopwords removal
 
-# Saving the final cleaned dataset
 
 # Load the cleaned dataset
 
-See! when we have done stopwords removal and cleaning some long texts row has been removed.
-
-# Model Setup and Dataset Preparation
+## Model Setup and Dataset Preparation
 
 This section prepares the data and model to fine-tune `sagorsarker/bangla-bert-base` for Bangla news categorization.
 
@@ -60,7 +56,7 @@ This section prepares the data and model to fine-tune `sagorsarker/bangla-bert-b
 
 This section covers the fine-tuning of Bangla BERT on the training data with **early stopping** to prevent overfitting. A **linear learning rate scheduler** is also used for optimized learning.
 
-## Step 8: Training Loop with Validation and Early Stopping
+## Training Loop with Validation and Early Stopping
 
 The model is trained for up to `num_epochs`, but it can stop earlier if the validation loss does not improve significantly for a number of `patience` consecutive epochs. This helps prevent overfitting and saves training time.
 
