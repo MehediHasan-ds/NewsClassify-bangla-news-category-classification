@@ -12,6 +12,7 @@ The aim is to develop an accurate and robust model that understands Bangla langu
 
 Here’s a revised version of the **"Data Load and Exploration", "Data Cleaning", "Feature Engineering"**, and **"Model Setup and Training"** sections. The rewrite focuses on **what has been done and what has been achieved**, emphasizing your **techniques and decisions**, not the detailed step-by-step process.
 
+### Please go to the notebook for a clean,modular and a very well documented script
 
 #### my notebook link: https://colab.research.google.com/drive/1V7T8yeZq4snNm3FLRE2pwKDgfDhMWoDM?usp=sharing
 
