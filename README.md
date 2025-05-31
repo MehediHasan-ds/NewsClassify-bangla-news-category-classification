@@ -16,6 +16,11 @@ Here’s a revised version of the **"Data Load and Exploration", "Data Cleaning"
 
 #### my notebook link: https://colab.research.google.com/drive/1V7T8yeZq4snNm3FLRE2pwKDgfDhMWoDM?usp=sharing
 
+### 🖥️ User Interface of the Product
+
+Below is a screenshot of the product's user interface where users can input Bangla news text and instantly see the predicted category:
+
+![User Interface](user_interface.png)
 
 ## 📂 Data Load and Exploration
 

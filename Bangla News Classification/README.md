@@ -1,11 +1,23 @@
+Sure! Here's how you can present the user interface in your project documentation:
+
+---
+
 # 📰 Bangla News Category Classifier
 
 A full-stack machine learning project that uses a fine-tuned [BanglaBERT-small](https://huggingface.co/csebuetnlp/banglabert_small) model to classify Bangla news texts into four categories:
 
-- **Sports** ⚽
-- **International** 🌐
-- **Entertainment** 🎬
-- **National** 🏛️
+* **Sports** ⚽
+* **International** 🌐
+* **Entertainment** 🎬
+* **National** 🏛️
+
+### 🖥️ User Interface of the Product
+
+Below is a screenshot of the product's user interface where users can input Bangla news text and instantly see the predicted category:
+
+![User Interface](user_interface.png)
+
+
 
 This project features:
 - ✅ A `FastAPI` backend for serving model inference
